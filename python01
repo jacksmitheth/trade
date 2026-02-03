@@ -1,0 +1,50 @@
+momentum_score * weights['momentum'] +
+            volatility_score * weights['volatility'] +
+            volume_score * weights['volume']
+        )
+        
+        # Determine signal based on composite score
+        if composite_score > 0.3:
+            signal = 'BULLISH'
+            confidence = min(100, (composite_score - 0.3) * 100 + 50)
+        elif composite_score < -0.3:
+            signal = 'BEARISH'
+            confidence = min(100, (abs(composite_score) - 0.3) * 100 + 50)
+        else:
+            signal = 'NEUTRAL'
+            confidence = 50
+        
+        # Generate recommendation based on analysis
+        recommendation = self._generate_recommendation(composite_score, trend_score, momentum_score)
+        
+        return {
+            'signal': signal,
+            'confidence': round(confidence, 1),
+            'bullish_score': round((composite_score + 1) / 2 * 100, 1),
+            'bearish_score': round((1 - composite_score) / 2 * 100, 1),
+            'components': {
+                'trend': round(trend_score, 3),
+                'momentum': round(momentum_score, 3),
+                'volatility': round(volatility_score, 3),
+                'volume': round(volume_score, 3)
+            },
+            'composite_score': round(composite_score, 3),
+            'recommendation': recommendation,
+            'current_price': round(df.iloc[-1]['price'], 2),
+            'rsi': round(df.iloc[-1]['rsi'], 1),
+            'macd': round(df.iloc[-1]['macd'], 4),
+            'bb_position': round(df.iloc[-1]['bb_position'], 3)
+        }
+    
+    def _generate_recommendation(self, composite, trend, momentum):
+        """Generate a text recommendation based on the analysis."""
+        if composite > 0.5:
+            return "Strong bullish signal. Consider long positions with proper risk management."
+        elif composite > 0.3:
+            return "Mild bullish bias. Monitor for confirmation before entering positions."
+        elif composite < -0.5:
+            return "Strong bearish signal. Consider short positions or avoid new longs."
+        elif composite < -0.3:
+            return "Mild bearish bias. Exercise caution and look for better entry points."
+        else:
+            return "Market in consolidation. Wait for clearer signals before trading."
