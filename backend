@@ -1,0 +1,67 @@
+# backend/config.py
+
+import os
+
+# Application Configuration
+class Config:
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'dev-key-change-in-production'
+    DEBUG = os.environ.get('DEBUG') or True
+    
+# API Configuration
+class APIConfig:
+    COINGECKO_BASE_URL = "https://api.coingecko.com/api/v3"
+    RATE_LIMIT_DELAY = 1.5  # Seconds between API calls to avoid rate limiting
+    
+    # Supported cryptocurrencies for analysis
+    SUPPORTED_COINS = [
+        'bitcoin',
+        'ethereum',
+        'binancecoin',
+        'solana',
+        'cardano',
+        'ripple',
+        'dogecoin',
+        'polkadot',
+        'chainlink',
+        'avalanche-2'
+    ]
+    
+    # Supported fiat currencies for price display
+    SUPPORTED_CURRENCIES = ['usd', 'eur', 'gbp', 'jpy']
+    
+    # Timeframes for analysis (in days)
+    TIMEFRAMES = {
+        'short': 7,      # Weekly trend
+        'medium': 30,    # Monthly trend
+        'long': 90       # Quarterly trend
+    }
+
+# Analysis Configuration
+class AnalysisConfig:
+    # Moving Average periods
+    SMA_SHORT = 7
+    SMA_MEDIUM = 25
+    SMA_LONG = 50
+    
+    # RSI settings
+    RSI_PERIOD = 14
+    RSI_OVERBOUGHT = 70
+    RSI_OVERSOLD = 30
+    
+    # MACD settings
+    MACD_FAST = 12
+    MACD_SLOW = 26
+    MACD_SIGNAL = 9
+    
+    # Bollinger Bands settings
+    BB_PERIOD = 20
+    BB_STD = 2
+    
+    # Signal weights for composite score
+    WEIGHTS = {
+        'trend': 0.30,
+        'momentum': 0.25,
+        'volatility': 0.15,
+        'volume': 0.15,
+        'sentiment': 0.15
+    }
