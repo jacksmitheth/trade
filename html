@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Market Direction Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-graph-up"></i> Crypto Market Tracker
+            </a>
+            <span class="navbar-text">
+                Bullish/Bearish Signal Detection
+            </span>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- Global Market Summary -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card global-stat-card">
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-2 text-muted">Total Market Cap</h6>
+                        <h4 class="card-title" id="total-market-cap">Loading...</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card global-stat-card">
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-2 text-muted">24h Volume</h6>
+                        <h4 class="card-title" id="total-volume">Loading...</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card global-stat-card">
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-2 text-muted">Market Dominance</h6>
+                        <h4 class="card-title" id="btc-dominance">Loading...</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card global-stat-card">
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-2 text-muted">24h Market Change</h6>
+                        <h4 class="card-title" id="market-change">Loading...</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Market Overview -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Market Overview</h5>
+                        <button class="btn btn-sm btn-outline-light" onclick="refreshMarketData()">
+                            Refresh
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="market-table">
+                                <thead>
+                                    <tr>
+                                        <th>Coin</th>
+                                        <th>Price</th>
+                                        <th>24h Change</th>
+                                        <th>Market Cap</th>
+                                        <th>Signal</th>
+                                        <th>Confidence</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="market-table-body">
+                                    <!-- Populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
